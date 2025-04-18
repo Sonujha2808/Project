@@ -1,0 +1,98 @@
+.category-slider {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+
+h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+}
+.category-card {
+  background: white;
+  border-radius: 10px;
+  width: 170px; /* Increased width */
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-card img {
+  width: 100px;  /* Bigger icon */
+  height: 100px;
+  object-fit: contain;
+  margin: 0 auto 8px auto; /* Centered and spacing below image */
+  display: block;
+}
+
+.category-card p {
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Arrows */
+.arrow {
+  font-size: 20px;
+  position: absolute;
+  top: 40%;
+  z-index: 10;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.next {
+  right: -20px;
+}
+
+.prev {
+  left: -20px;
+}
+
+.slick-slide > div {
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .arrow {
+    top: 35%;
+    font-size: 18px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-card {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}

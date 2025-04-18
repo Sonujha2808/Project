@@ -1,0 +1,70 @@
+.promo-slider {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0;
+  }
+  
+  .slide-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  
+  .slide-text {
+    max-width: 500px;
+    flex: 1;
+  }
+  
+  .slide-text h4 {
+    color: #f04e4e;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .slide-text h2 {
+    font-size: 28px;
+    margin: 10px 0;
+  }
+  
+  .slide-text p {
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .slide-text button {
+    background-color: #005eff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .slide img {
+    max-width: 300px;
+    width: 100%;
+    flex: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .slide-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .slide-text h2 {
+      font-size: 22px;
+    }
+  
+    .slide img {
+      max-width: 200px;
+      margin-top: 20px;
+    }
+  }
+  
