@@ -35,7 +35,8 @@ import Cart from "./Component/Cart";
 import Wishlist from "./Component/Wishlist";
 import ThankYou from "./Component/ThankYou";
 import PromoSlider from "./Component/PromoSlider";
-
+import NewArrivals from "./Component/NewArrival";
+import ProductDetails from "./Component/ProductDetails";
 
 
 function Layout() {
@@ -45,15 +46,18 @@ function Layout() {
   return (
     <div className="app-container">
       {!isAdminRoute && <Header />}
-      <PromoSlider />
+      {!isAdminRoute && <PromoSlider />}
       <Routes>
         <Route path="/" element={<CategorySlider />} />
         <Route path="/category/:category" element={<CategoryPage />} />
+        <Route path="/product/:productId" element={<ProductDetails />} />
+
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
+      {!isAdminRoute && <NewArrivals />}
       {!isAdminRoute && <FeaturesSection />}
       {!isAdminRoute && <Footer />}
     </div>
