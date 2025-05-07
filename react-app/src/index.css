@@ -1,0 +1,7 @@
+.app-container {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #f8f9fa; /* Light background */
+    transition: background-color 0.3s ease;
+  }
+  

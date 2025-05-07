@@ -1,29 +1,7 @@
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Header from "./Component/Header/Header";
-// import Footer from "./Component/Footer/Footer";
-// import CategorySlider from "./Component/Category";
-// import CategoryPage from "./Component/CategoryPage"; // Page for clicked category
-
-// function App() {
-//   return (
-//     <Router>
-//       <div>
-//         <Header />
-//         <Routes>
-//           <Route path="/" element={<CategorySlider />} />
-//           <Route path="/category/:category" element={<CategoryPage />} /> 
-//         </Routes>
-//         <Footer />
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
 
 
 import React from "react";
+import './index.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./Component/Header/Header";
 import Footer from "./Component/Footer/Footer";
@@ -37,29 +15,45 @@ import ThankYou from "./Component/ThankYou";
 import PromoSlider from "./Component/PromoSlider";
 import NewArrivals from "./Component/NewArrival";
 import ProductDetails from "./Component/ProductDetails";
-
+import AddressPage from "./Component/AddressPage";
+import PaymentPage from "./Component/PaymentPage";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Layout() {
   const location = useLocation();
-  const isAdminRoute = location.pathname === "/admin";
+  const hideLayoutRoutes = ["/admin", "/address","/payment","/cart", "/wishlist","/thankyou"];
+  const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
     <div className="app-container">
-      {!isAdminRoute && <Header />}
-      {!isAdminRoute && <PromoSlider />}
-      <Routes>
-        <Route path="/" element={<CategorySlider />} />
-        <Route path="/category/:category" element={<CategoryPage />} />
-        <Route path="/product/:productId" element={<ProductDetails />} />
+      {!shouldHideLayout && <Header />}
+      {!shouldHideLayout && <PromoSlider />}
 
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/thankyou" element={<ThankYou />} />
-      </Routes>
-      {!isAdminRoute && <NewArrivals />}
-      {!isAdminRoute && <FeaturesSection />}
-      {!isAdminRoute && <Footer />}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<CategorySlider />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/thankyou" element={<ThankYou />} />
+            <Route path="/address" element={<AddressPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
+
+      {!shouldHideLayout && <NewArrivals />}
+      {!shouldHideLayout && <FeaturesSection />}
+      {!shouldHideLayout && <Footer />}
     </div>
   );
 }

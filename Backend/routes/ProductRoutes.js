@@ -1,75 +1,48 @@
 // const express = require("express");
-// const { uploadProduct, getAllProducts, upload } = require("../controllers/ProductController");
-
 // const router = express.Router();
-
-// router.post("/upload", upload.single("image"), uploadProduct);
-// router.get("/all", getAllProducts);
-
-// module.exports = router;
-
-
-
-// const express = require("express");
-// const {
-//   getAllProducts,
-//   getProductById,
-//   uploadProduct
-// } = require("../controllers/ProductController");
-
-// const upload = require("../config/multerConfig");
-
-// const router = express.Router();
-
-// // Get all products
-// router.get("/", getAllProducts);
-
-// // Get single product by ID
-// router.get("/:id", getProductById);
-
-// // Upload product with multiple images under field name "image"
-// router.post("/", upload.array("images"), uploadProduct);
-
-// module.exports = router;
-
-
-// const express = require("express");
-// const router = express.Router();
-// const {
-//   uploadProduct,
-//   getAllProducts,
-//   getProductsByCategory,
-// } = require("../controllers/ProductController");
+// const { uploadProduct, getAllProducts, getProductsByCategory } = require("../controllers/ProductController");
 // const upload = require("../middleware/uploadMiddleware");
 
-// // Upload a product
+// // ✅ Upload a product
 // router.post("/", upload.single("image"), uploadProduct);
 
-// // Get all products
+// // ✅ Get all products
 // router.get("/all", getAllProducts);
 
-// // Get products by category
-// router.get("/category/:category", getProductsByCategory); // changed to a proper route
+// // ✅ Get products by category
+// router.get("/", getProductsByCategory); // Changed from /category to / to match frontend API call
 
 // module.exports = router;
-
-
 
 
 
 
 const express = require("express");
 const router = express.Router();
+const Product = require("../models/Product");
 const { uploadProduct, getAllProducts, getProductsByCategory } = require("../controllers/ProductController");
 const upload = require("../middleware/uploadMiddleware");
 
 // ✅ Upload a product
 router.post("/", upload.single("image"), uploadProduct);
 
-// ✅ Get all products
+// ✅ Get all products (optional separate route)
 router.get("/all", getAllProducts);
 
-// ✅ Get products by category
-router.get("/", getProductsByCategory); // Changed from /category to / to match frontend API call
+// ✅ Get product by ID — must be above "/" route to avoid shadowing
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// ✅ Get products by category or all if no category filter
+router.get("/", getProductsByCategory);
 
 module.exports = router;

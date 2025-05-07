@@ -1,26 +1,36 @@
-// import React, { useState, useEffect } from "react";
+// import React, { useEffect, useState } from "react";
+// import { loadCartFromServer, saveCartToServer } from "../utils/cartHelper";
 // import { useNavigate } from "react-router-dom";
 
 // const Cart = () => {
 //   const [cartItems, setCartItems] = useState([]);
 //   const navigate = useNavigate();
+//   const user = JSON.parse(localStorage.getItem("user"));
 
 //   useEffect(() => {
-//     const storedItems = JSON.parse(localStorage.getItem("cart")) || [];
-//     setCartItems(storedItems.map(item => ({ ...item, quantity: item.quantity || 1 })));
+//     if (user?._id) {
+//       loadCartFromServer(user._id).then(setCartItems);
+//     } else {
+//       const stored = JSON.parse(localStorage.getItem("cart")) || [];
+//       setCartItems(stored);
+//     }
 //   }, []);
 
-//   const handleQuantityChange = (index, delta) => {
-//     const updatedCart = [...cartItems];
-//     updatedCart[index].quantity = Math.max(1, updatedCart[index].quantity + delta);
+//   const updateLocalAndServerCart = (updatedCart) => {
 //     setCartItems(updatedCart);
 //     localStorage.setItem("cart", JSON.stringify(updatedCart));
+//     if (user?._id) saveCartToServer(user._id, updatedCart);
+//   };
+
+//   const handleQuantityChange = (index, delta) => {
+//     const updated = [...cartItems];
+//     updated[index].quantity = Math.max(1, updated[index].quantity + delta);
+//     updateLocalAndServerCart(updated);
 //   };
 
 //   const handleRemove = (index) => {
-//     const updatedCart = cartItems.filter((_, i) => i !== index);
-//     setCartItems(updatedCart);
-//     localStorage.setItem("cart", JSON.stringify(updatedCart));
+//     const updated = cartItems.filter((_, i) => i !== index);
+//     updateLocalAndServerCart(updated);
 //   };
 
 //   const getTotalAmount = () =>
@@ -31,36 +41,122 @@
 
 //   const handlePlaceOrder = () => {
 //     localStorage.removeItem("cart");
-//     navigate("/thankyou");
+//     if (user?._id) saveCartToServer(user._id, []);
+//     setCartItems([]);
+//     navigate("/address");
 //   };
-
+//   const handleCheckout = () => {
+//     navigate('/payment', { state: { amountToPay: totalAmount } });
+//   };
 //   return (
-//     <div style={{ padding: "20px" }}>
-//       <h2>🛒 Your Cart</h2>
+//     <div style={{ padding: "20px", maxWidth: "1200px", margin: "auto" }}>
+//       <h2 style={{ marginBottom: "20px", color: "#1976d2" }}>🛒 Your Cart</h2>
 //       {cartItems.length === 0 ? (
-//         <p>Your cart is empty.</p>
+//         <p style={{ fontSize: "18px" }}>Your cart is empty.</p>
 //       ) : (
 //         <>
 //           {cartItems.map((item, index) => (
-//             <div key={index} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
-//               <img src={item.imageUrl[0]} alt={item.name} style={{ width: "100px" }} />
-//               <h4>{item.name}</h4>
-//               <p>₹{item.price}</p>
-//               <div>
-//                 Quantity:
-//                 <button onClick={() => handleQuantityChange(index, -1)}>-</button>
-//                 {item.quantity}
-//                 <button onClick={() => handleQuantityChange(index, 1)}>+</button>
+//             <div
+//               key={index}
+//               style={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 justifyContent: "space-between",
+//                 border: "1px solid #ccc",
+//                 borderRadius: "8px",
+//                 padding: "15px",
+//                 marginBottom: "15px",
+//                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+//               }}
+//             >
+//               <div style={{ display: "flex", alignItems: "center" }}>
+//                 <img
+//                   src={item.imageUrl}
+//                   alt={item.name}
+//                   style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
+//                 />
+//                 <div style={{ marginLeft: "20px" }}>
+//                   <h4 style={{ margin: "0 0 10px" }}>{item.name}</h4>
+//                   <p style={{ margin: "0", fontWeight: "bold", color: "#333" }}>₹{item.price}</p>
+//                 </div>
 //               </div>
-//               <button onClick={() => handleRemove(index)}>Remove</button>
+//               <div style={{ textAlign: "center" }}>
+//                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>
+//                   <button
+//                     onClick={() => handleQuantityChange(index, -1)}
+//                     style={{
+//                       width: "30px",
+//                       height: "30px",
+//                       borderRadius: "50%",
+//                       backgroundColor: "#eee",
+//                       border: "1px solid #ccc",
+//                       fontWeight: "bold",
+//                       cursor: "pointer",
+//                     }}
+//                   >
+//                     -
+//                   </button>
+//                   <span style={{ margin: "0 10px" }}>{item.quantity}</span>
+//                   <button
+//                     onClick={() => handleQuantityChange(index, 1)}
+//                     style={{
+//                       width: "30px",
+//                       height: "30px",
+//                       borderRadius: "50%",
+//                       backgroundColor: "#eee",
+//                       border: "1px solid #ccc",
+//                       fontWeight: "bold",
+//                       cursor: "pointer",
+//                     }}
+//                   >
+//                     +
+//                   </button>
+//                 </div>
+//                 <button
+//                   onClick={() => handleRemove(index)}
+//                   style={{
+//                     backgroundColor: "#ff4d4d",
+//                     color: "white",
+//                     padding: "8px 16px",
+//                     border: "none",
+//                     borderRadius: "5px",
+//                     cursor: "pointer",
+//                     fontWeight: "bold",
+//                   }}
+//                 >
+//                   Remove
+//                 </button>
+//               </div>
 //             </div>
 //           ))}
 
-//           <div style={{ marginTop: "20px" }}>
+//           <div
+//             style={{
+//               textAlign: "right",
+//               borderTop: "1px solid #ccc",
+//               paddingTop: "20px",
+//               marginTop: "30px",
+//             }}
+//           >
 //             <h3>Total Price: ₹{getTotalAmount()}</h3>
 //             <h4>Delivery Charges: ₹{deliveryCharge}</h4>
-//             <h2>Total Amount: ₹{finalAmount}</h2>
-//             <button onClick={handlePlaceOrder} style={{ marginTop: "10px", padding: "10px 20px" }}>
+//             <h2 style={{ marginBottom: "20px", color: "#2e7d32" }}>Final Amount: ₹{finalAmount}</h2>
+//             <button
+//               onClick={handlePlaceOrder}
+//               style={{
+//                 backgroundColor: "#1976d2",
+//                 color: "#fff",
+//                 padding: "12px 25px",
+//                 fontSize: "16px",
+//                 fontWeight: "bold",
+//                 border: "none",
+//                 borderRadius: "8px",
+//                 cursor: "pointer",
+//                 transition: "background-color 0.3s",
+//               }}
+//               onMouseOver={(e) => (e.target.style.backgroundColor = "#115293")}
+//               onMouseOut={(e) => (e.target.style.backgroundColor = "#1976d2")}
+//             >
 //               Place Order
 //             </button>
 //           </div>
@@ -71,6 +167,13 @@
 // };
 
 // export default Cart;
+
+
+
+
+
+
+
 
 
 
@@ -116,47 +219,123 @@ const Cart = () => {
   const deliveryCharge = getTotalAmount() < 100 ? 50 : 0;
   const finalAmount = getTotalAmount() + deliveryCharge;
 
-  const handlePlaceOrder = () => {
-    localStorage.removeItem("cart");
-    if (user?._id) saveCartToServer(user._id, []);
-    setCartItems([]);
-    navigate("/thankyou");
+  const handleCheckout = () => {
+    navigate('/address', { state: { amountToPay: finalAmount } });
+
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>🛒 Your Cart</h2>
+    <div style={{ padding: "20px", maxWidth: "1200px", margin: "auto" }}>
+      <h2 style={{ marginBottom: "20px", color: "#1976d2" }}>🛒 Your Cart</h2>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p style={{ fontSize: "18px" }}>Your cart is empty.</p>
       ) : (
         <>
           {cartItems.map((item, index) => (
-            <div key={index} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
-              <img src={item.imageUrl} alt={item.name} style={{ width: "100px" }} />
-              <h4>{item.name}</h4>
-              <p>₹{item.price}</p>
-              <div>
-                Quantity:
-                <button onClick={() => handleQuantityChange(index, -1)}>-</button>
-                {item.quantity}
-                <button onClick={() => handleQuantityChange(index, 1)}>+</button>
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                padding: "15px",
+                marginBottom: "15px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                  }}
+                />
+                <div style={{ marginLeft: "20px" }}>
+                  <h4 style={{ margin: "0 0 10px" }}>{item.name}</h4>
+                  <p style={{ margin: "0", fontWeight: "bold", color: "#333" }}>₹{item.price}</p>
+                </div>
               </div>
-              <button onClick={() => handleRemove(index)}>Remove</button>
+              <div style={{ textAlign: "center" }}>
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "10px"
+                }}>
+                  <button onClick={() => handleQuantityChange(index, -1)} style={quantityButtonStyle}>-</button>
+                  <span style={{ margin: "0 10px" }}>{item.quantity}</span>
+                  <button onClick={() => handleQuantityChange(index, 1)} style={quantityButtonStyle}>+</button>
+                </div>
+                <button
+                  onClick={() => handleRemove(index)}
+                  style={removeButtonStyle}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           ))}
 
-          <div style={{ marginTop: "20px" }}>
+          <div style={{
+            textAlign: "right",
+            borderTop: "1px solid #ccc",
+            paddingTop: "20px",
+            marginTop: "30px",
+          }}>
             <h3>Total Price: ₹{getTotalAmount()}</h3>
             <h4>Delivery Charges: ₹{deliveryCharge}</h4>
-            <h2>Total Amount: ₹{finalAmount}</h2>
-            <button onClick={handlePlaceOrder} style={{ marginTop: "10px", padding: "10px 20px" }}>
-              Place Order
+            <h2 style={{ marginBottom: "20px", color: "#2e7d32" }}>Final Amount: ₹{finalAmount}</h2>
+            <button
+              onClick={handleCheckout}
+              style={checkoutButtonStyle}
+              onMouseOver={(e) => (e.target.style.backgroundColor = "#115293")}
+              onMouseOut={(e) => (e.target.style.backgroundColor = "#1976d2")}
+            >
+              Proceed to Payment
             </button>
           </div>
         </>
       )}
     </div>
   );
+};
+
+const quantityButtonStyle = {
+  width: "30px",
+  height: "30px",
+  borderRadius: "50%",
+  backgroundColor: "#eee",
+  border: "1px solid #ccc",
+  fontWeight: "bold",
+  cursor: "pointer",
+};
+
+const removeButtonStyle = {
+  backgroundColor: "#ff4d4d",
+  color: "white",
+  padding: "8px 16px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontWeight: "bold",
+};
+
+const checkoutButtonStyle = {
+  backgroundColor: "#1976d2",
+  color: "#fff",
+  padding: "12px 25px",
+  fontSize: "16px",
+  fontWeight: "bold",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  transition: "background-color 0.3s",
 };
 
 export default Cart;

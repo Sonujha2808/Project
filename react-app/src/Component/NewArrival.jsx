@@ -1,6 +1,7 @@
 import React from "react";
-import "./NewArrivals.css"; // We'll style it here
-import Boat from ".././Assets/boatearpods1.jpg";
+import "./NewArrivals.css";
+import Boat from "../Assets/boatearpods1.jpg";
+
 const NewArrivals = () => {
   return (
     <div className="new-arrivals">
@@ -14,35 +15,54 @@ const NewArrivals = () => {
         </div>
 
         <div className="small-products">
-          <div className="small-product-card">
-            <img src={Boat} alt="Headphone" />
-            <h4>Wireless Headphones</h4>
-            <p>₹1,500</p>
-            <div className="rating">⭐⭐⭐⭐⭐</div>
-          </div>
-          <div className="small-product-card">
-            <img src="/path-to-headphone2.jpg" alt="Headphone" />
-            <h4>Gaming Headset</h4>
-            <p>₹2,500</p>
-            <div className="rating">⭐⭐⭐⭐</div>
-          </div>
-          <div className="small-product-card">
-            <img src={Boat} alt="Headphone" />
-            <h4>Noise Cancelling</h4>
-            <p>₹3,000</p>
-            <div className="rating">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
+  <div className="small-product-card">
+    <img src={Boat} alt="Wireless Headphones" />
+    <h4>Wireless Headphones</h4>
+    <p>₹1,500</p>
+    <div className="rating">⭐⭐⭐⭐⭐</div>
+  </div>
+  <div className="small-product-card">
+    <img src={Boat} alt="Gaming Headset" />
+    <h4>Gaming Headset</h4>
+    <p>₹2,500</p>
+    <div className="rating">⭐⭐⭐⭐</div>
+  </div>
+  <div className="small-product-card">
+    <img src={Boat} alt="Noise Cancelling" />
+    <h4>Noise Cancelling</h4>
+    <p>₹3,000</p>
+    <div className="rating">⭐⭐⭐⭐⭐</div>
+  </div>
+  <div className="small-product-card">
+    <img src={Boat} alt="Bass Boost" />
+    <h4>Bass Boost</h4>
+    <p>₹1,800</p>
+    <div className="rating">⭐⭐⭐⭐</div>
+  </div>
+  <div className="small-product-card">
+    <img src={Boat} alt="Bluetooth Speaker" />
+    <h4>Bluetooth Speaker</h4>
+    <p>₹2,200</p>
+    <div className="rating">⭐⭐⭐⭐⭐</div>
+  </div>
+  <div className="small-product-card">
+    <img src={Boat} alt="Smart Earbuds" />
+    <h4>Smart Earbuds</h4>
+    <p>₹2,800</p>
+    <div className="rating">⭐⭐⭐⭐</div>
+  </div>
+</div>
+
       </div>
 
-      <div className="promo-banner">
+      {/* <div className="promo-banner">
         <img src={Boat} alt="Promo" />
         <div className="promo-content">
-          <h3>Up to 40% Off On Digital Items</h3>
-          <p>Special offer on best-selling audio gadgets.</p>
+          <h3>Up to 40% Off</h3>
+          <p>Best-selling audio gadgets on sale.</p>
           <button className="shop-now-btn">Shop Now</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
