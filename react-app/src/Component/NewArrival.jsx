@@ -1,6 +1,7 @@
 import React from "react";
 import "./NewArrivals.css";
 import Boat from "../Assets/boatearpods1.jpg";
+import headphone from "../Assets/headPhone.png";
 
 const NewArrivals = () => {
   return (
@@ -16,7 +17,7 @@ const NewArrivals = () => {
 
         <div className="small-products">
   <div className="small-product-card">
-    <img src={Boat} alt="Wireless Headphones" />
+    <img src={headphone} alt="Wireless Headphones" />
     <h4>Wireless Headphones</h4>
     <p>₹1,500</p>
     <div className="rating">⭐⭐⭐⭐⭐</div>

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Category.css";
-
 // Import category icons
 import laptopIcon from "../Assets/cateroryIcons/Laptop.png";
 import phoneIcon from "../Assets/cateroryIcons/phone.png";
@@ -56,10 +55,6 @@ const CategorySlider = () => {
       },
     ],
   };
-  
-    
-  
-
   return (
     <div className="category-slider">
       <h2>Browse by Category</h2>
@@ -78,5 +73,4 @@ const CategorySlider = () => {
     </div>
   );
 };
-
 export default CategorySlider;

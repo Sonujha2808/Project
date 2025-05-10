@@ -22,13 +22,13 @@ const Footer = () => {
       <div className="footer-content">
         {/* Logo & Social Icons */}
         <div className="footer-section">
-          <h2 className="logo">Made In India</h2>
+          <h2 className="logo">BharatBazaar</h2>
           <div className="social-icons">
             <FaFacebookF />
             <FaTwitter />
             <FaPinterestP />
           </div>
-          <p>© 2023 Made In India. All Rights Reserved.</p>
+          <p>© 2025 BharatBazaar  All Rights Reserved.</p>
         </div>
 
         {/* Get to Know Us */}

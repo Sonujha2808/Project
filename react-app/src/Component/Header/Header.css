@@ -8,18 +8,22 @@
   }
   
   .logo {
-    display: flex;
-    align-items: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: #000;
-  }
-  
-  .logo img {
-    height: 30px;
-    margin-right: 10px;
-  }
-  
+  display: flex;
+  align-items: center;
+  font-size: 26px; /* Slightly bigger text */
+  font-weight: bold;
+  color: #000;
+}
+
+.logo img {
+  height: 60px; /* Bigger image */
+  width: 60px; /* Make it a perfect circle */
+  border-radius: 50%; /* Make it circular */
+  margin-right: 12px; /* Slightly more spacing */
+  object-fit: cover; /* Image fits properly inside circle */
+  border: 2px solid #000; /* Optional: adds a black border around the circle */
+}
+
   .nav-links {
     display: flex;
     gap: 20px;
@@ -274,7 +278,9 @@
 .hamburger {
   display: none;
   font-size: 24px;
+ 
   cursor: pointer;
+  margin-left: auto;
 }
 
 /* Responsive styles */

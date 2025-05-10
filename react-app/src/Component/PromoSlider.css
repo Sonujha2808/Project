@@ -1,3 +1,4 @@
+
 .promo-slider {
     width: 100%;
     background-color: #fff;
@@ -47,7 +48,7 @@
   }
   
   .slide img {
-    max-width: 300px;
+    max-width: 220px;
     width: 100%;
     flex: 1;
   }
@@ -62,9 +63,11 @@
       font-size: 22px;
     }
   
-    .slide img {
-      max-width: 200px;
-      margin-top: 20px;
-    }
   }
+
+  .slide img {
+  max-width: 220px; /* 👈 slightly smaller than 300px */
+  width: 100%;
+  flex: 1;
+}
   

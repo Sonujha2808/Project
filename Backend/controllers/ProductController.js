@@ -1,11 +1,9 @@
 const Product = require("../models/Product");
 const cloudinary = require("../config/cloudinary");
-
 // ✅ Upload Product (Ensure category is stored correctly)
 exports.uploadProduct = async (req, res) => {
   try {
     const { name, category, description, price } = req.body;
-
     if (!req.file) {
       return res.status(400).json({ success: false, message: "Image is required" });
     }

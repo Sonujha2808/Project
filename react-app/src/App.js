@@ -7,7 +7,7 @@ import Header from "./Component/Header/Header";
 import Footer from "./Component/Footer/Footer";
 import CategorySlider from "./Component/Category";
 import CategoryPage from "./Component/CategoryPage";
-import AdminPanel from "./Component/AdminPanel";
+import AdminPanel from "./Component/Admin/AdminPanel";
 import FeaturesSection from "./Component/Features/Features";
 import Cart from "./Component/Cart";
 import Wishlist from "./Component/Wishlist";
@@ -15,7 +15,7 @@ import ThankYou from "./Component/ThankYou";
 import PromoSlider from "./Component/PromoSlider";
 import NewArrivals from "./Component/NewArrival";
 import ProductDetails from "./Component/ProductDetails";
-import AddressPage from "./Component/AddressPage";
+import AddressPage from "./Component/Address/AddressPage";
 import PaymentPage from "./Component/PaymentPage";
 import { motion, AnimatePresence } from "framer-motion";
 

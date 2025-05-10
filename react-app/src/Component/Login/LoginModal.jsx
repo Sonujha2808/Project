@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./LoginModal.css";
-import loginGif from "../Assets/login.gif";
-import signupGif from "../Assets/man.gif";
+import loginGif from "../../Assets/login.gif";
+import signupGif from "../../Assets/man.gif";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { loadCartFromServer } from "../utils/cartHelper";
+import { loadCartFromServer } from "../../utils/cartHelper";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -96,3 +96,4 @@ const LoginModal = ({ closeModal }) => {
 };
 
 export default LoginModal;
+
