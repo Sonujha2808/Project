@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaFacebookF, FaTwitter, FaPinterestP } from "react-icons/fa";
 import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
-import "./Footer.css"; // Import the CSS file
+import "./Footer.css";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      toast.error("Please enter a valid email.");
+      return;
+    }
+    try {
+      // await axios.post("/api/subscribe", { email });
+      await axios.post("http://localhost:5000/api/subscribe", { email });
+
+      toast.success("Thank you for subscribing! Please check your email.");
+      setEmail("");
+    } catch (error) {
+      console.error(error);
+      toast.error("Subscription failed. Try again later.");
+    }
+  };
+
   return (
     <footer className="footer">
       {/* Newsletter Section */}
@@ -11,16 +33,19 @@ const Footer = () => {
         <h2>Join Us & Get Updates</h2>
         <p>Sign up for exclusive offers, latest news, and updates</p>
         <div className="newsletter-input">
-          <input type="email" placeholder="Enter email address" />
-          <button>Subscribe →</button>
+          <input
+            type="email"
+            placeholder="Enter email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button onClick={handleSubscribe}>Subscribe →</button>
         </div>
       </div>
 
+      {/* Footer content below remains same */}
       <hr className="divider" />
-
-      {/* Footer Content */}
       <div className="footer-content">
-        {/* Logo & Social Icons */}
         <div className="footer-section">
           <h2 className="logo">BharatBazaar</h2>
           <div className="social-icons">
@@ -28,10 +53,8 @@ const Footer = () => {
             <FaTwitter />
             <FaPinterestP />
           </div>
-          <p>© 2025 BharatBazaar  All Rights Reserved.</p>
+          <p>© 2025 BharatBazaar All Rights Reserved.</p>
         </div>
-
-        {/* Get to Know Us */}
         <div className="footer-section">
           <h3>Get to Know Us</h3>
           <ul>
@@ -42,8 +65,6 @@ const Footer = () => {
             <li><a href="#">How To Shop</a></li>
           </ul>
         </div>
-
-        {/* Orders & Returns */}
         <div className="footer-section">
           <h3>Orders & Returns</h3>
           <ul>
@@ -54,8 +75,6 @@ const Footer = () => {
             <li><a href="#">Payment</a></li>
           </ul>
         </div>
-
-        {/* Contact */}
         <div className="footer-section">
           <h3>Contact</h3>
           <ul>
@@ -65,10 +84,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-
       <hr className="divider" />
-
-      {/* Footer Bottom */}
       <div className="footer-bottom">
         <div className="policies">
           <a href="#">Privacy Policy</a>

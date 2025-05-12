@@ -1,4 +1,4 @@
-
+// PaymentPage.jsx
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const PaymentPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const amountToPay = location.state?.amountToPay || 0; // dynamic amount received from Cart
+  const amountToPay = location.state?.amountToPay || 0;
 
   const [selectedMethod, setSelectedMethod] = useState('card');
   const [cardName, setCardName] = useState('');
@@ -31,109 +31,14 @@ const PaymentPage = () => {
     }
     toast.success('Payment Successful!');
     setTimeout(() => {
-      navigate('/thankyou');
+      navigate('/thankyou', { state: { amountPaid: amountToPay } });
     }, 2000);
   };
 
   return (
     <div style={styles.pageContainer}>
       <ToastContainer position="top-right" />
-      
-      <style>
-        {`
-          .step {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #6b7280;
-          }
-          .step .active {
-            color: #2563eb;
-          }
-          .payment-container {
-            display: flex;
-            gap: 2rem;
-          }
-          .payment-methods {
-            width: 30%;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            background-color: #f9fafb;
-          }
-          .payment-methods button {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-          }
-          .payment-methods button:hover, .payment-methods .active {
-            background-color: #e0e7ff;
-          }
-          .payment-form {
-            flex-grow: 1;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-          }
-          .amount-summary {
-            width: 25%;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            height: fit-content;
-            background-color: #f9fafb;
-          }
-          input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #ccc;
-            border-radius: 0.375rem;
-            outline: none;
-            margin-bottom: 1rem;
-          }
-          input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
-          }
-          .flex {
-            display: flex;
-            gap: 1rem;
-          }
-          .half {
-            width: 50%;
-          }
-          .pay-button {
-            width: 100%;
-            background-color: #2563eb;
-            color: white;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 0.375rem;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-          }
-          .pay-button:hover {
-            background-color: #1d4ed8;
-          }
-          .payment-logo {
-            height: 20px;
-          }
-        `}
-      </style>
+      <style>{paymentStyles}</style>
 
       {/* Steps Indicator */}
       <div className="step">
@@ -143,7 +48,6 @@ const PaymentPage = () => {
       </div>
 
       <div className="payment-container">
-
         {/* Payment Methods */}
         <div className="payment-methods">
           <button
@@ -200,24 +104,19 @@ const PaymentPage = () => {
               </div>
             </>
           )}
-
           {selectedMethod === 'upi' && (
-            <>
-              <input
-                type="text"
-                placeholder="Enter your UPI ID"
-                value={upiId}
-                onChange={(e) => setUpiId(e.target.value)}
-              />
-            </>
+            <input
+              type="text"
+              placeholder="Enter your UPI ID"
+              value={upiId}
+              onChange={(e) => setUpiId(e.target.value)}
+            />
           )}
-
           {selectedMethod === 'cod' && (
             <p style={{ marginBottom: "1rem", fontWeight: "500" }}>
               Pay in cash when your order is delivered.
             </p>
           )}
-
           <button className="pay-button" onClick={handlePayment}>
             Pay ₹{amountToPay}
           </button>
@@ -241,5 +140,96 @@ const styles = {
     margin: "auto",
   },
 };
+
+const paymentStyles = `
+  .step {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  .step .active {
+    color: #2563eb;
+  }
+  .payment-container {
+    display: flex;
+    gap: 2rem;
+  }
+  .payment-methods {
+    width: 30%;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #f9fafb;
+  }
+  .payment-methods button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .payment-methods button:hover, .payment-methods .active {
+    background-color: #e0e7ff;
+  }
+  .payment-form {
+    flex-grow: 1;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+  .amount-summary {
+    width: 25%;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    height: fit-content;
+    background-color: #f9fafb;
+  }
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    outline: none;
+    margin-bottom: 1rem;
+  }
+  input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
+  }
+  .flex {
+    display: flex;
+    gap: 1rem;
+  }
+  .half {
+    width: 50%;
+  }
+  .pay-button {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .pay-button:hover {
+    background-color: #1d4ed8;
+  }
+`;
 
 export default PaymentPage;

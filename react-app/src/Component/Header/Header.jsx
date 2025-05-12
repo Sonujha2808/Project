@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaHeart, FaBars } from "react-icons/fa";
@@ -6,32 +7,37 @@ import LoginModal from "../Login/LoginModal";
 import userIcon from "../../Assets/profile.gif";
 import userIcon2 from "../../Assets/search.gif";
 import logo from "../../Assets/logo.png";
+import { useUser } from "../UserContext"; // Import context
+import { toast } from "react-toastify"; // Import toast
+
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [showWishlistDropdown, setShowWishlistDropdown] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { user, setUser } = useUser(); // Use context
 
-  // Fetch cart and wishlist from localStorage
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
   const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-  // Load user from localStorage on mount
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       setUser(storedUser);
     }
-  }, []);
+  }, [setUser]);
 
-  // Logout Handler
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    window.location.reload();
+    toast.success("Logout successful!", {
+      position: "top-center",
+      autoClose: 2000,
+      pauseOnHover: true,
+      theme: "colored",
+    });
   };
 
   return (
@@ -78,7 +84,7 @@ const Header = () => {
             <span className="cart-count">{cartItems.length}</span>
           </div>
 
-          {/* User Login / Welcome */}
+          {/* User */}
           {user ? (
             <div className="user-welcome">
               <span>Welcome, {user.name}!</span>

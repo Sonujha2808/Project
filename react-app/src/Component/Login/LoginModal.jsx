@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { loadCartFromServer } from "../../utils/cartHelper";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useUser } from "../UserContext"; // Import context
 
 const LoginModal = ({ closeModal }) => {
   const [isSignup, setIsSignup] = useState(false);
@@ -14,6 +14,7 @@ const LoginModal = ({ closeModal }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useUser(); // Use context
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,14 +27,19 @@ const LoginModal = ({ closeModal }) => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
+        setUser(response.data.user); // Update context
 
         const userId = response.data.user._id;
         const cartFromDB = await loadCartFromServer(userId);
         localStorage.setItem("cart", JSON.stringify(cartFromDB));
 
-        window.dispatchEvent(new Event("user-logged-in")); // Notify other components
+        toast.success(`${isSignup ? "Signup" : "Login"} successful!`, {
+          position: "top-center",
+          autoClose: 2000,
+          pauseOnHover: true,
+          theme: "colored",
+        });
 
-        toast.success(`${isSignup ? "Signup" : "Login"} successful!`);
         closeModal();
         navigate("/");
       } else {
@@ -96,4 +102,3 @@ const LoginModal = ({ closeModal }) => {
 };
 
 export default LoginModal;
-

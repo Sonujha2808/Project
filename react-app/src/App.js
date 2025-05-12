@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import './index.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
@@ -18,14 +16,17 @@ import ProductDetails from "./Component/ProductDetails";
 import AddressPage from "./Component/Address/AddressPage";
 import PaymentPage from "./Component/PaymentPage";
 import { motion, AnimatePresence } from "framer-motion";
+import { ToastContainer } from "react-toastify"; // ✨ Import ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // ✨ Import Toastify CSS
 
 function Layout() {
   const location = useLocation();
-  const hideLayoutRoutes = ["/admin", "/address","/payment","/cart", "/wishlist","/thankyou"];
+  const hideLayoutRoutes = ["/admin", "/address", "/payment", "/cart", "/wishlist", "/thankyou"];
   const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
     <div className="app-container">
+      {/* Header and PromoSlider only if not hidden */}
       {!shouldHideLayout && <Header />}
       {!shouldHideLayout && <PromoSlider />}
 
@@ -51,6 +52,7 @@ function Layout() {
         </motion.div>
       </AnimatePresence>
 
+      {/* NewArrivals, Features, Footer only if not hidden */}
       {!shouldHideLayout && <NewArrivals />}
       {!shouldHideLayout && <FeaturesSection />}
       {!shouldHideLayout && <Footer />}
@@ -62,6 +64,7 @@ function App() {
   return (
     <Router>
       <Layout />
+      <ToastContainer /> {/* ✨ Add ToastContainer at the bottom for toasts */}
     </Router>
   );
 }
