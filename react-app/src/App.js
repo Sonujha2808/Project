@@ -3,18 +3,18 @@ import './index.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./Component/Header/Header";
 import Footer from "./Component/Footer/Footer";
-import CategorySlider from "./Component/Category";
+import CategorySlider from "./Component/Category/Category";
 import CategoryPage from "./Component/CategoryPage";
 import AdminPanel from "./Component/Admin/AdminPanel";
 import FeaturesSection from "./Component/Features/Features";
-import Cart from "./Component/Cart";
-import Wishlist from "./Component/Wishlist";
-import ThankYou from "./Component/ThankYou";
-import PromoSlider from "./Component/PromoSlider";
-import NewArrivals from "./Component/NewArrival";
-import ProductDetails from "./Component/ProductDetails";
+import Cart from "./Component/cart/Cart";
+import Wishlist from "./Component/Wishlist/Wishlist";
+import ThankYou from "./Component/ThankYou/ThankYou";
+import PromoSlider from "./Component/PromoSlider/PromoSlider";
+import NewArrivals from "./Component/NewArrivals/NewArrival";
+import ProductDetails from "./Component/ProductDetails/ProductDetails";
 import AddressPage from "./Component/Address/AddressPage";
-import PaymentPage from "./Component/PaymentPage";
+import PaymentPage from "./Component/Payment/PaymentPage";
 import { motion, AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify"; // ✨ Import ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // ✨ Import Toastify CSS

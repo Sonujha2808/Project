@@ -137,11 +137,11 @@
   
   .payment-icons {
     display: flex;
-    gap: 10px;
+    gap: 15px;
   }
   
   .payment-icons img {
-    height: 25px;
+    height: 50px;
     width: auto;
   }
   

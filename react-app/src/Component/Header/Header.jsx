@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaHeart, FaBars } from "react-icons/fa";
@@ -40,23 +39,31 @@ const Header = () => {
     });
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev); // toggle between true and false
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false); // Close menu when a nav link is clicked
+  };
+
   return (
     <>
       <header className="header">
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")}>
           <img src={logo} alt="Logo" />
           <span>BharatBazaar</span>
         </div>
 
-        <FaBars className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)} />
+        <FaBars className="hamburger" onClick={toggleMenu} />
 
         <nav className={`nav-links ${isMenuOpen ? "active" : ""}`}>
-          <a href="#">Home</a>
-          <a href="#">Category</a>
-          <a href="#">About Us</a>
-          <a href="#">FAQ</a>
-          <a href="#">Blog</a>
-          <a href="#">Contact</a>
+          <a href="#" onClick={closeMenu}>Home</a>
+          <a href="#" onClick={closeMenu}>Category</a>
+          <a href="#" onClick={closeMenu}>About Us</a>
+          <a href="#" onClick={closeMenu}>FAQ</a>
+          <a href="#" onClick={closeMenu}>Blog</a>
+          <a href="#" onClick={closeMenu}>Contact</a>
         </nav>
 
         <div className="header-icons">

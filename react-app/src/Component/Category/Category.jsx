@@ -5,12 +5,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Category.css";
 // Import category icons
-import laptopIcon from "../Assets/cateroryIcons/Laptop.png";
-import phoneIcon from "../Assets/cateroryIcons/phone.png";
-import watchIcon from "../Assets/cateroryIcons/Laptop.png";
-import cameraIcon from "../Assets/cateroryIcons/camera.png";
-import headphoneIcon from "../Assets/cateroryIcons/headphones.png";
-import gamepadIcon from "../Assets/cateroryIcons/controller.png";
+import laptopIcon from "../../Assets/cateroryIcons/Laptop.png";
+import phoneIcon from "../../Assets/cateroryIcons/phone.png";
+import watchIcon from "../../Assets/cateroryIcons/Laptop.png";
+import cameraIcon from "../../Assets/cateroryIcons/camera.png";
+import headphoneIcon from "../../Assets/cateroryIcons/headphones.png";
+import gamepadIcon from "../../Assets/cateroryIcons/controller.png";
 
 const categories = [
   { name: "Laptop", icon: laptopIcon },
@@ -56,7 +56,7 @@ const CategorySlider = () => {
     ],
   };
   return (
-    <div className="category-slider">
+    <div className="category-slider" id="Cat">
       <h2>Browse by Category</h2>
       <Slider {...settings}>
         {categories.map((category, index) => (

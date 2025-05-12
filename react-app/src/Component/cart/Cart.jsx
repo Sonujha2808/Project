@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { loadCartFromServer, saveCartToServer } from "../utils/cartHelper";
+import { loadCartFromServer, saveCartToServer } from "../../utils/cartHelper";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {

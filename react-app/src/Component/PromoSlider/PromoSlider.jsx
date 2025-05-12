@@ -1,9 +1,9 @@
 import React from "react";
 import Slider from "react-slick";
 import "./PromoSlider.css"; // We'll style it here
-import banner1 from "../Assets/headPhone.png"; // Replace with your images
-import banner2 from "../Assets/Phone.png";
-import banner3 from "../Assets/Watch.png";
+import banner1 from "../../Assets/headPhone.png"; // Replace with your images
+import banner2 from "../../Assets/Phone.png";
+import banner3 from "../../Assets/Watch.png";
 
 const slides = [
   {

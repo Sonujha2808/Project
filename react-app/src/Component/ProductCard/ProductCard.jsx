@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ProductCard.css";
-import { saveCartToServer } from "../utils/cartHelper";
+import { saveCartToServer } from "../../utils/cartHelper";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
