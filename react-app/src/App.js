@@ -122,7 +122,7 @@ function Layout() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<CategorySlider />} />
             <Route path="/category/:category" element={<CategoryPage />} />
-            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
