@@ -78,9 +78,9 @@
 
 
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './index.css';
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Header from "./Component/Header/Header";
 import Footer from "./Component/Footer/Footer";
 import CategorySlider from "./Component/Category/Category";
@@ -98,9 +98,17 @@ import PaymentPage from "./Component/Payment/PaymentPage";
 import { motion, AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoginModal from "./Component/Login/LoginModal";
 
 function Layout() {
   const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
+  useEffect(()=>{
+    if(!localStorage.getItem("user")){
+      setShowModal(true);
+    }
+  })
+
 
   const hideLayoutRoutes = ["/admin", "/address", "/payment", "/cart", "/wishlist", "/thankyou"];
   const isCategoryPage = location.pathname.startsWith("/category/");
@@ -127,8 +135,26 @@ function Layout() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/thankyou" element={<ThankYou />} />
-            <Route path="/address" element={<AddressPage />} />
-            <Route path="/payment" element={<PaymentPage />} />
+            <Route 
+              path="/address" 
+              element={
+                localStorage.getItem("user") ? (
+                  <AddressPage />
+                ) : (
+                  <LoginModal closeModal={() => setShowModal(false)}/>
+                )
+              } 
+            />
+            <Route 
+              path="/payment" 
+              element={
+                localStorage.getItem("user") ? (
+                  <PaymentPage />
+                ) : (
+                  <LoginModal closeModal={() => setShowModal(false)}/>
+                )
+              } 
+            />
           </Routes>
         </motion.div>
       </AnimatePresence>
